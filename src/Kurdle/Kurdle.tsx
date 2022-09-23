@@ -5,7 +5,6 @@ import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
 import { readInWords } from './WordProcessor';
-import { AddFriendForm } from '../Dexie/db';
 
 type myState = {
   letters: Letter[][];
