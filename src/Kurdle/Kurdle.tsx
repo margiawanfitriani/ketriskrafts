@@ -11,19 +11,17 @@ class Kurdle extends React.Component<any, any> {
     this.state = { letters: Letters };
   }
 
-  updateLetterAccuracy() {
-    this.setState((this.state.letters = this.state.L));
+  updateLetterAccuracy(row: number, col: number) {
+    this.state.letters[row][col].IncrementAccuracy();
+    this.setState({ letters: this.state.letters })
   }
 
   render() {
     return (
       <LetterSlot
-        Letter={this.state.letters[0][0]}
-        onClick={() => {
-          this.state.Letters[0][0].IncrementAccuracy();
-          this.updateLetterAccuracy();
-        }}
-      ></LetterSlot>
+        letter={this.state.letters[0][0]}
+        onClick={() => this.updateLetterAccuracy(0, 0)}
+      ></LetterSlot >
     );
   }
 }

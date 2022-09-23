@@ -2,12 +2,10 @@ import React from 'react';
 
 function LetterSlot(props: any) {
   return (
-    <div>
-      <button onClick={props.onClick}>
-        Value: {props.Letter.Value}
-        Accuracy {props.Letter.Accuracy}
-      </button>
-    </div>
+    <button onClick={props.onClick}>
+      Letter: {props.letter.Letter}
+      Accuracy: {props.letter.Accuracy}
+    </button>
   );
 }
 
