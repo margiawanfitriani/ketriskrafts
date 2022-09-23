@@ -6,13 +6,4 @@ export class Letter {
     this.Letter = letter;
     this.Accuracy = accuracy;
   }
-
-  IncrementAccuracy = () => {
-    console.log('BEFORE: ' + this.Accuracy);
-    this.Accuracy++;
-    if (this.Accuracy === 3) {
-      this.Accuracy = 0;
-    }
-    console.log('AFTER: ' + this.Accuracy);
-  };
 }

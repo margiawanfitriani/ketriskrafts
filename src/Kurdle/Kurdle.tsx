@@ -1,27 +1,74 @@
 import LetterSlot from './LetterSlot';
 import React from 'react';
 import { Letter } from './Letter';
+import { deepCopy } from '../Utilities/deepCopy';
+import Grid from '@mui/material/Grid'; // Grid version 1
 
-class Kurdle extends React.Component<any, any> {
+type myState = {
+  letters: Letter[][];
+};
+
+class Kurdle extends React.Component<any, myState> {
   constructor(props: any) {
-    let Letters: Letter[][] = new Array(6).fill(
-      Array(5).fill(new Letter('', -1)),
+    let Letters: Letter[][] = new Array(5).fill(
+      Array(6).fill(new Letter('', -1)),
     );
     super(props);
     this.state = { letters: Letters };
   }
 
   updateLetterAccuracy(row: number, col: number) {
-    this.state.letters[row][col].IncrementAccuracy();
-    this.setState({ letters: this.state.letters })
+    let copiedLetters: Letter[][] = deepCopy(this.state.letters);
+    if (++copiedLetters[row][col].Accuracy === 3) {
+      copiedLetters[row][col].Accuracy = -1;
+    }
+
+    this.setState({ letters: deepCopy(copiedLetters) });
+  }
+
+  updateLetterValue(
+    row: number,
+    col: number,
+    event: React.FormEvent<HTMLInputElement>,
+  ) {
+    let copiedLetters: Letter[][] = deepCopy(this.state.letters);
+
+    copiedLetters[row][col].Letter = event.currentTarget.value;
+    this.setState({
+      letters: deepCopy(copiedLetters),
+    });
   }
 
   render() {
     return (
-      <LetterSlot
-        letter={this.state.letters[0][0]}
-        onClick={() => this.updateLetterAccuracy(0, 0)}
-      ></LetterSlot >
+      <Grid
+        style={{ marginTop: '9em' }}
+        container
+        direction='row'
+        justifyContent='center'
+        alignItems='center'
+        spacing={2}
+      >
+        {this.state.letters.map((row, rowIndex) => {
+          return (
+            <Grid key={rowIndex}>
+              {row.map((col, colIndex) => (
+                <Grid item>
+                  <LetterSlot
+                    letter={this.state.letters[rowIndex][colIndex]}
+                    onClick={() =>
+                      this.updateLetterAccuracy(rowIndex, colIndex)
+                    }
+                    onChange={(event: React.FormEvent<HTMLInputElement>) =>
+                      this.updateLetterValue(rowIndex, colIndex, event)
+                    }
+                  ></LetterSlot>
+                </Grid>
+              ))}
+            </Grid>
+          );
+        })}
+      </Grid>
     );
   }
 }
