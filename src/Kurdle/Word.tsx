@@ -1,3 +1,0 @@
-type Word = {
-  word: string;
-};

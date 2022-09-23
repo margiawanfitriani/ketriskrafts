@@ -1,0 +1,53 @@
+.container{  
+    text-align: center;  
+    
+    }  
+
+.reset-btn{  
+    color: black;
+    width: 120px;
+    height: 120px;
+    font-family: fantasy;
+    font-size: 20px;
+    border-radius: 10%;
+    margin: 12px 6px;
+    resize: none;
+    white-space: normal;
+    text-align: center;
+    vertical-align: center;
+    align-items: center;
+    text-transform: uppercase;
+    transform: translate(-7px);
+}  
+
+.reset-btn:hover{  
+    background-color: bisque;
+}
+
+.reset-btn:active{  
+    background-color:#3a3a3c;
+}
+
+.kurdle-cell{
+    color: white;
+    width: 120px;
+    height: 120px;
+    font-family: fantasy;
+    font-size: 80px;
+    border: 2px solid #3a3a3c;
+    border-radius: 10%;
+    margin: 6px 6px;
+    resize: none;
+    white-space: normal;
+    text-align: center;
+    vertical-align: center;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.kurdle-cell:focus {
+    border: 2px solid black;
+    outline: #00ffff solid 7px;
+    text-align: center;
+}

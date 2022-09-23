@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
-import React from 'react';
+import React, { KeyboardEventHandler } from 'react';
 import { Letter } from './Letter';
+import './Kurdle.css';
 
 type myProps = {
   onClick: any;
@@ -23,31 +24,16 @@ function colorPicker(Accuracy: number): string {
 
 function LetterSlot(props: myProps) {
   return (
-    <textarea
+    <input
+      className='kurdle-cell'
       maxLength={1}
       onClick={props.onClick}
       value={props.letter.Letter}
       onChange={(e) => props.onChange(e)}
       style={{
         background: colorPicker(props.letter.Accuracy),
-        color: 'White',
-        width: '120px',
-        height: '120px',
-        fontFamily: 'Fantasy',
-        fontSize: '80px',
-        border: '2px solid #3a3a3c',
-        borderRadius: '10%',
-        margin: '12px 6px',
-        textDecoration: 'none',
-        resize: 'none',
-        whiteSpace: 'normal',
-        textAlign: 'center',
-        verticalAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        display: 'flex',
       }}
-    ></textarea>
+    ></input>
   );
 }
 
