@@ -4,7 +4,7 @@ import { Letter } from './Letter';
 import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
-import { readInWords } from './WordProcessor';
+import { words } from './WordProcessor';
 
 type myState = {
   letters: Letter[][];
@@ -12,7 +12,7 @@ type myState = {
 
 class Kurdle extends React.Component<any, myState> {
   constructor(props: any) {
-    let possibleWords = readInWords();
+    let possibleWords = words;
     super(props);
     this.state = {
       letters: new Array(5).fill(Array(6).fill(new Letter('', -1))),
@@ -79,7 +79,6 @@ class Kurdle extends React.Component<any, myState> {
         <div> Possible letters: </div>
         <div> Wrong letters: </div>
         <div> Possible Words: </div>
-        <AddFriendForm></AddFriendForm>
       </div>
     );
   }
