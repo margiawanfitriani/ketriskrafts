@@ -1,0 +1,3 @@
+type Word = {
+  word: string;
+};
