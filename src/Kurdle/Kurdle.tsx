@@ -38,10 +38,13 @@ class Kurdle extends React.Component<any, MyState> {
         switch (letter.Accuracy) {
           case 0:
             this.state.grey.push(letter);
+            break;
           case 1:
             this.state.yellow.push(letter);
+            break;
           case 0:
             this.state.green.push(letter);
+            break;
         }
       });
     });
@@ -74,7 +77,7 @@ class Kurdle extends React.Component<any, MyState> {
   render() {
     return (
       <div>
-        {/* <Grid
+        <Grid
           container
           style={{ marginTop: '10vh' }}
           direction='row'
@@ -101,11 +104,11 @@ class Kurdle extends React.Component<any, MyState> {
               </Grid>
             );
           })}
-        </Grid> */}
+        </Grid>
         <div className='container'>
           <button className='reset-btn'>RESET</button>
         </div>
-        <div> green letters: {this.state.wordsList[0][0]} </div>
+        {/* <div> green letters: {this.state.wordsList[0][0]} </div> */}
         {/* <div> Possible letters: {yellow} </div>
         <div> Wrong letters: {grey} </div> */}
         <div> Possible Words: {possibleWords} </div>
