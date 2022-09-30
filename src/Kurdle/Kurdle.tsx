@@ -1,31 +1,60 @@
 import LetterSlot from './LetterSlot';
-import React from 'react';
+import React, { Children } from 'react';
 import { Letter } from './Letter';
 import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
 import { words } from './WordProcessor';
 
-type myState = {
-  letters: Letter[][];
+type Props = {
+  title: string;
+  children?: React.ReactNode;
 };
 
-class Kurdle extends React.Component<any, myState> {
-  constructor(props: any) {
-    let possibleWords = words;
+type MyState = {
+  wordsList: Letter[][];
+  green: Letter[];
+  yellow: Letter[];
+  grey: Letter[];
+};
+
+let possibleWords = words;
+
+class Kurdle extends React.Component<any, MyState> {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      letters: new Array(5).fill(Array(6).fill(new Letter('', -1))),
+      wordsList: new Array(5).fill(Array(6).fill(new Letter('', -1))),
+      green: new Array(5),
+      yellow: new Array(),
+      grey: new Array(26),
     };
   }
 
+  interpretLettersArray() {
+    this.state.wordsList.forEach(word => {
+      word.forEach((letter: Letter) => {
+        //-1 is no entry, 0 is grey, 1 is yellow, 2 is green
+        switch (letter.Accuracy) {
+          case 0:
+            this.state.grey.push(letter);
+          case 1:
+            this.state.yellow.push(letter);
+          case 0:
+            this.state.green.push(letter);
+        }
+      });
+    });
+  }
+
   updateLetterAccuracy(row: number, col: number) {
-    let copiedLetters: Letter[][] = deepCopy(this.state.letters);
+    let copiedLetters: Letter[][] = deepCopy(this.state.wordsList);
     if (++copiedLetters[row][col].Accuracy === 3) {
       copiedLetters[row][col].Accuracy = -1;
     }
 
-    this.setState({ letters: deepCopy(copiedLetters) });
+    this.setState({ wordsList: deepCopy(copiedLetters) });
+    this.interpretLettersArray();
   }
 
   updateLetterValue(
@@ -33,18 +62,19 @@ class Kurdle extends React.Component<any, myState> {
     col: number,
     event: React.FormEvent<HTMLInputElement>,
   ) {
-    let copiedLetters: Letter[][] = deepCopy(this.state.letters);
+    let copiedLetters: Letter[][] = deepCopy(this.state.wordsList);
 
     copiedLetters[row][col].Letter = event.currentTarget.value;
     this.setState({
-      letters: deepCopy(copiedLetters),
+      wordsList: deepCopy(copiedLetters),
     });
+    this.interpretLettersArray()
   }
 
   render() {
     return (
       <div>
-        <Grid
+        {/* <Grid
           container
           style={{ marginTop: '10vh' }}
           direction='row'
@@ -52,13 +82,13 @@ class Kurdle extends React.Component<any, myState> {
           alignItems='center'
           spacing={2}
         >
-          {this.state.letters.map((row, rowIndex) => {
+          {this.state.wordsList.map((row, rowIndex) => {
             return (
               <Grid key={rowIndex}>
                 {row.map((col, colIndex) => (
                   <Grid item>
                     <LetterSlot
-                      letter={this.state.letters[rowIndex][colIndex]}
+                      letter={this.state.wordsList[rowIndex][colIndex]}
                       onClick={() =>
                         this.updateLetterAccuracy(rowIndex, colIndex)
                       }
@@ -71,14 +101,14 @@ class Kurdle extends React.Component<any, myState> {
               </Grid>
             );
           })}
-        </Grid>
+        </Grid> */}
         <div className='container'>
           <button className='reset-btn'>RESET</button>
         </div>
-        <div> Known letters: </div>
-        <div> Possible letters: </div>
-        <div> Wrong letters: </div>
-        <div> Possible Words: </div>
+        <div> green letters: {this.state.wordsList[0][0]} </div>
+        {/* <div> Possible letters: {yellow} </div>
+        <div> Wrong letters: {grey} </div> */}
+        <div> Possible Words: {possibleWords} </div>
       </div>
     );
   }
