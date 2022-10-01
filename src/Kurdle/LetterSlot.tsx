@@ -1,11 +1,11 @@
 import { TextField } from '@mui/material';
 import React, { KeyboardEventHandler } from 'react';
-import { Letter } from './Letter';
+import { Position } from './Position';
 import './Kurdle.css';
 
 type myProps = {
   onClick: any;
-  letter: Letter;
+  position: Position;
   onChange: any;
 };
 
@@ -28,10 +28,10 @@ function LetterSlot(props: myProps) {
       className='kurdle-cell'
       maxLength={1}
       onClick={props.onClick}
-      value={props.letter.Letter}
+      value={props.position.Letter}
       onChange={(e) => props.onChange(e)}
       style={{
-        background: colorPicker(props.letter.Accuracy),
+        background: colorPicker(props.position.Accuracy),
       }}
     ></input>
   );

@@ -1,6 +1,6 @@
 import LetterSlot from './LetterSlot';
 import React, { Children } from 'react';
-import { Letter } from './Letter';
+import { Position } from './Position';
 import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
@@ -12,52 +12,68 @@ type Props = {
 };
 
 type MyState = {
-  wordsList: Letter[][];
-  green: Letter[];
-  yellow: Letter[];
-  grey: Letter[];
+  gridList: Position[][];
+  wordList: string[];
 };
-
-let possibleWords = words;
 
 class Kurdle extends React.Component<any, MyState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      wordsList: new Array(5).fill(Array(6).fill(new Letter('', -1))),
-      green: new Array(5),
-      yellow: new Array(),
-      grey: new Array(26),
+      gridList: this.createStartingGrid(),
+      wordList: words,
     };
   }
 
-  interpretLettersArray() {
-    this.state.wordsList.forEach(word => {
-      word.forEach((letter: Letter) => {
-        //-1 is no entry, 0 is grey, 1 is yellow, 2 is green
-        switch (letter.Accuracy) {
-          case 0:
-            this.state.grey.push(letter);
-            break;
-          case 1:
-            this.state.yellow.push(letter);
-            break;
-          case 0:
-            this.state.green.push(letter);
-            break;
-        }
-      });
-    });
+  createStartingGrid(): Position[][] {
+    var rows = new Array(5);
+    for (let index = 0; index < rows.length; index++) {
+      rows[index] = (Array(6).fill(new Position('', -1, index)))
+    }
+    return rows;
+  }
+
+  filterWords() {
+    // let green: Position[] = new Array(5);
+    // let yellow: Position[] = new Array();
+    // let grey: Position[] = new Array(26);
+
+    // let indexInWord = 0;
+    // this.state.gridList.forEach(word => {
+    //   word.forEach((letter: Letter) => {
+    //     if (letter.Letter !== '') {
+    //       switch (letter.Accuracy) {
+    //         case 0:
+    //           grey.push(new Position(letter, indexInWord));
+    //           break;
+    //         case 1:
+    //           yellow.push(new Position(letter, indexInWord));
+    //           break;
+    //         case 2:
+    //           green.push(new Position(letter, indexInWord));
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     }
+    //   });
+    //   indexInWord++;
+    // });
+
+    // this.setState({
+    //   green: green,
+    //   yellow: yellow,
+    //   grey: grey,
+    // });
   }
 
   updateLetterAccuracy(row: number, col: number) {
-    let copiedLetters: Letter[][] = deepCopy(this.state.wordsList);
+    let copiedLetters: Position[][] = deepCopy(this.state.gridList);
     if (++copiedLetters[row][col].Accuracy === 3) {
       copiedLetters[row][col].Accuracy = -1;
     }
 
-    this.setState({ wordsList: deepCopy(copiedLetters) });
-    this.interpretLettersArray();
+    this.setState({ gridList: deepCopy(copiedLetters) });
   }
 
   updateLetterValue(
@@ -65,13 +81,12 @@ class Kurdle extends React.Component<any, MyState> {
     col: number,
     event: React.FormEvent<HTMLInputElement>,
   ) {
-    let copiedLetters: Letter[][] = deepCopy(this.state.wordsList);
+    let copiedLetters: Position[][] = deepCopy(this.state.gridList);
 
     copiedLetters[row][col].Letter = event.currentTarget.value;
     this.setState({
-      wordsList: deepCopy(copiedLetters),
+      gridList: deepCopy(copiedLetters),
     });
-    this.interpretLettersArray()
   }
 
   render() {
@@ -85,13 +100,13 @@ class Kurdle extends React.Component<any, MyState> {
           alignItems='center'
           spacing={2}
         >
-          {this.state.wordsList.map((row, rowIndex) => {
+          {this.state.gridList.map((row, rowIndex) => {
             return (
               <Grid key={rowIndex}>
                 {row.map((col, colIndex) => (
                   <Grid item>
                     <LetterSlot
-                      letter={this.state.wordsList[rowIndex][colIndex]}
+                      position={this.state.gridList[rowIndex][colIndex]}
                       onClick={() =>
                         this.updateLetterAccuracy(rowIndex, colIndex)
                       }
@@ -107,11 +122,9 @@ class Kurdle extends React.Component<any, MyState> {
         </Grid>
         <div className='container'>
           <button className='reset-btn'>RESET</button>
+          <button className='reset-btn' onClick={this.filterWords}>Calculate</button>
         </div>
-        {/* <div> green letters: {this.state.wordsList[0][0]} </div> */}
-        {/* <div> Possible letters: {yellow} </div>
-        <div> Wrong letters: {grey} </div> */}
-        <div> Possible Words: {possibleWords} </div>
+        {/* <div> {`Possible Words: ${this.state.wordList}`}</div> */}
       </div>
     );
   }
