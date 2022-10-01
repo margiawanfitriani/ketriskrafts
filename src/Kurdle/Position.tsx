@@ -1,6 +1,6 @@
 export class Position {
   Letter: string = '';
-  Accuracy: number = -1; //-1 is no entry, 0 is grey, 1 is yellow, 2 is green
+  Accuracy: Color = Color.Nothing;
   Index: number;
 
   constructor(letter: string, accuracy: number, index: number) {
@@ -8,4 +8,11 @@ export class Position {
     this.Accuracy = accuracy;
     this.Index = index;
   }
+}
+
+export enum Color {
+  Nothing = -1,
+  Grey = 0,
+  Yellow = 1,
+  Green = 2,
 }

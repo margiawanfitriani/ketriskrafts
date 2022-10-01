@@ -4,7 +4,7 @@ import { Position } from './Position';
 import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
-import { words } from './WordProcessor';
+import { trimWords, words } from './WordProcessor';
 
 type Props = {
   title: string;
@@ -34,37 +34,14 @@ class Kurdle extends React.Component<any, MyState> {
   }
 
   filterWords() {
-    // let green: Position[] = new Array(5);
-    // let yellow: Position[] = new Array();
-    // let grey: Position[] = new Array(26);
+    var calculatedWordList = words
+    this.state.gridList.forEach(col => {
+      col.forEach(position => {
+        calculatedWordList = trimWords(position, calculatedWordList)
+      })
+    });
 
-    // let indexInWord = 0;
-    // this.state.gridList.forEach(word => {
-    //   word.forEach((letter: Letter) => {
-    //     if (letter.Letter !== '') {
-    //       switch (letter.Accuracy) {
-    //         case 0:
-    //           grey.push(new Position(letter, indexInWord));
-    //           break;
-    //         case 1:
-    //           yellow.push(new Position(letter, indexInWord));
-    //           break;
-    //         case 2:
-    //           green.push(new Position(letter, indexInWord));
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     }
-    //   });
-    //   indexInWord++;
-    // });
-
-    // this.setState({
-    //   green: green,
-    //   yellow: yellow,
-    //   grey: grey,
-    // });
+    this.setState({ wordList: calculatedWordList })
   }
 
   updateLetterAccuracy(row: number, col: number) {
@@ -122,9 +99,9 @@ class Kurdle extends React.Component<any, MyState> {
         </Grid>
         <div className='container'>
           <button className='reset-btn'>RESET</button>
-          <button className='reset-btn' onClick={this.filterWords}>Calculate</button>
+          <button className='reset-btn' onClick={this.filterWords.bind(this)}>Calculate</button>
         </div>
-        {/* <div> {`Possible Words: ${this.state.wordList}`}</div> */}
+        <div> {`Possible Words: ${this.state.wordList}`}</div>
       </div>
     );
   }
