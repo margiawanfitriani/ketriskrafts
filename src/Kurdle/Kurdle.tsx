@@ -76,13 +76,14 @@ class Kurdle extends React.Component<any, MyState> {
         <Grid
           container
           style={{ marginTop: '10vh' }}
-          direction='row'
+          direction='column'
           justifyContent='center'
           alignItems='center'
           spacing={2}
         >
           {this.state.gridList.map((row, rowIndex) => {
             return (
+              // TODOASDF IN THE FUTURE FIX THIS TO BE A CONTAINER WITH COLOUMN DIRECTION
               <Grid key={rowIndex}>
                 {row.map((col, colIndex) => (
                   <Grid item>
