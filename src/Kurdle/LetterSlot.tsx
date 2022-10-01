@@ -1,5 +1,3 @@
-import { TextField } from '@mui/material';
-import React, { KeyboardEventHandler } from 'react';
 import { Position } from './Position';
 import './Kurdle.css';
 

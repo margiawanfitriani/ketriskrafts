@@ -26,7 +26,7 @@ function createStartingGrid(): Position[][] {
 
 const initialState: MyState = {
   gridList: createStartingGrid(),
-  wordList: words,
+  wordList: [],
 }
 
 class Kurdle extends React.Component<any, MyState> {
@@ -76,7 +76,7 @@ class Kurdle extends React.Component<any, MyState> {
         <Grid
           container
           style={{ marginTop: '10vh' }}
-          direction='column'
+          direction='row'
           justifyContent='center'
           alignItems='center'
           spacing={2}
@@ -106,7 +106,10 @@ class Kurdle extends React.Component<any, MyState> {
           <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>RESET</button>
           <button className='reset-btn' onClick={this.filterWords.bind(this)}>Calculate</button>
         </div>
-        <div> {`Possible Words: ${this.state.wordList}`}</div>
+        <div className='wordListDiv'>
+          <h1 className='wordListHeader'>Possible Words</h1>
+          <p>{this.state.wordList.join(' ')}</p>
+        </div>
       </div>
     );
   }

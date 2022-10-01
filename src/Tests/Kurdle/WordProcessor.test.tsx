@@ -1,4 +1,3 @@
-import { render, screen } from '@testing-library/react';
 import { Color, Position } from '../../Kurdle/Position';
 import { trimWords } from '../../Kurdle/WordProcessor';
 

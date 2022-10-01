@@ -1,7 +1,19 @@
 .container{  
     text-align: center;  
-    
     }  
+
+.wordListDiv {
+    border: 1px solid gray;
+    padding: 10px;
+    margin-left: 20vw;
+    margin-right: 20vw;
+}
+
+.wordListHeader {
+    text-align: center;
+    text-transform: uppercase;
+    color: #4CAF50;
+}
 
 .reset-btn{  
     color: black;

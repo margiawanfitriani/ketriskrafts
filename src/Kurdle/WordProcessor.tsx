@@ -1,6 +1,3 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { parse } from 'csv-parse';
 import { Position, Color } from './Position';
 
 export const trimWords = (position: Position, calculatedWordList: string[]): string[] => {//There are probably tons of improvements for this (especially with yellows)
