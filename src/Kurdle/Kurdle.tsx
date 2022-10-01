@@ -4,6 +4,7 @@ import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
 import { trimWords, words } from './WordProcessor';
+import React from 'react';
 
 type MyState = {
   gridList: Position[][];
@@ -24,7 +25,7 @@ const initialState: MyState = {
 }
 
 class Kurdle extends React.Component<any, MyState> {
-  constructor(props: Props) {
+  constructor(props: any) {
     super(props);
     this.state = {
       ...initialState
