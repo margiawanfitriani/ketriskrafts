@@ -16,21 +16,25 @@ type MyState = {
   wordList: string[];
 };
 
+function createStartingGrid(): Position[][] {
+  var rows = new Array(5);
+  for (let index = 0; index < rows.length; index++) {
+    rows[index] = (Array(6).fill(new Position('', -1, index)))
+  }
+  return rows;
+}
+
+const initialState: MyState = {
+  gridList: createStartingGrid(),
+  wordList: words,
+}
+
 class Kurdle extends React.Component<any, MyState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      gridList: this.createStartingGrid(),
-      wordList: words,
+      ...initialState
     };
-  }
-
-  createStartingGrid(): Position[][] {
-    var rows = new Array(5);
-    for (let index = 0; index < rows.length; index++) {
-      rows[index] = (Array(6).fill(new Position('', -1, index)))
-    }
-    return rows;
   }
 
   filterWords() {
@@ -98,7 +102,7 @@ class Kurdle extends React.Component<any, MyState> {
           })}
         </Grid>
         <div className='container'>
-          <button className='reset-btn'>RESET</button>
+          <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>RESET</button>
           <button className='reset-btn' onClick={this.filterWords.bind(this)}>Calculate</button>
         </div>
         <div> {`Possible Words: ${this.state.wordList}`}</div>
