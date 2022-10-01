@@ -1,3 +1,10 @@
+export enum Color {
+  Nothing = -1,
+  Grey = 0,
+  Yellow = 1,
+  Green = 2,
+}
+
 export class Position {
   Letter: string = '';
   Accuracy: Color = Color.Nothing;
@@ -8,11 +15,4 @@ export class Position {
     this.Accuracy = accuracy;
     this.Index = index;
   }
-}
-
-export enum Color {
-  Nothing = -1,
-  Grey = 0,
-  Yellow = 1,
-  Green = 2,
 }

@@ -1,15 +1,9 @@
 import LetterSlot from './LetterSlot';
-import React, { Children } from 'react';
 import { Position } from './Position';
 import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
 import { trimWords, words } from './WordProcessor';
-
-type Props = {
-  title: string;
-  children?: React.ReactNode;
-};
 
 type MyState = {
   gridList: Position[][];
