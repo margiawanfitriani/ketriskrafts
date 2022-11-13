@@ -1,5 +1,5 @@
 import LetterSlot from './LetterSlot';
-import { Position } from './Position';
+import { Color, Position } from './Position';
 import { deepCopy } from '../Utilities/deepCopy';
 import Grid from '@mui/material/Grid'; // Grid version 1
 import './Kurdle.css';
@@ -12,9 +12,10 @@ type MyState = {
 };
 
 function createStartingGrid(): Position[][] {
-  var rows = new Array(5);
+  let rows: Position[][] = new Array(6);
   for (let index = 0; index < rows.length; index++) {
-    rows[index] = (Array(6).fill(new Position('', -1, index)))
+    let columnPosition: number = 0;
+    rows[index] = Array(5).fill(new Position('', -1, 0)).map((el: Position) => ({ ...el, Index: columnPosition++ }));
   }
   return rows;
 }
@@ -33,10 +34,27 @@ class Kurdle extends React.Component<any, MyState> {
   }
 
   filterWords() {
-    var calculatedWordList = words
-    this.state.gridList.forEach(col => {
-      col.forEach(position => {
-        calculatedWordList = trimWords(position, calculatedWordList)
+    let calculatedWordList = words
+    let greenLetters: Position[] = [];
+
+    this.state.gridList.forEach(row => {
+      row.forEach(letter => {
+        let overlappingLetters = greenLetters.filter((greenLetter) => greenLetter.Letter === letter.Letter)
+        if (overlappingLetters.length > 0) {
+          if (letter.Color !== Color.Grey) {
+            // If we have a grey letter that is the same as a green then don't filter
+            //TODOASDF: if we have a yellow, and a green, then we need to only find words where there are both the green and another occurance of the same
+            // letter in the word right now the way I have it written would mean making some changes to how the processing gets done. I am just a little too 
+            // lazy right now to fix that 
+            calculatedWordList = trimWords(letter, calculatedWordList)
+          }
+        } else {
+          calculatedWordList = trimWords(letter, calculatedWordList)
+        }
+
+        if (letter.Color === Color.Green) {
+          greenLetters = greenLetters.concat(letter)
+        }
       })
     });
 
@@ -45,8 +63,8 @@ class Kurdle extends React.Component<any, MyState> {
 
   updateLetterAccuracy(row: number, col: number) {
     let copiedLetters: Position[][] = deepCopy(this.state.gridList);
-    if (++copiedLetters[row][col].Accuracy === 3) {
-      copiedLetters[row][col].Accuracy = -1;
+    if (++copiedLetters[row][col].Color === 3) {
+      copiedLetters[row][col].Color = -1;
     }
 
     this.setState({ gridList: deepCopy(copiedLetters) });
@@ -67,10 +85,10 @@ class Kurdle extends React.Component<any, MyState> {
 
   render() {
     return (
-      <div>
+      <div className="div-grid-holder">
         <Grid
           container
-          style={{ marginTop: '10vh' }}
+          className="kurdle-grid"
           direction='row'
           justifyContent='center'
           alignItems='center'
@@ -78,10 +96,9 @@ class Kurdle extends React.Component<any, MyState> {
         >
           {this.state.gridList.map((row, rowIndex) => {
             return (
-              // TODOASDF IN THE FUTURE FIX THIS TO BE A CONTAINER WITH COLOUMN DIRECTION
-              <Grid key={rowIndex}>
+              <Grid container key={rowIndex}>
                 {row.map((col, colIndex) => (
-                  <Grid item>
+                  <Grid item key={colIndex}>
                     <LetterSlot
                       position={this.state.gridList[rowIndex][colIndex]}
                       onClick={() =>
@@ -98,8 +115,8 @@ class Kurdle extends React.Component<any, MyState> {
           })}
         </Grid>
         <div className='container'>
-          <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>RESET</button>
-          <button className='reset-btn' onClick={this.filterWords.bind(this)}>Calculate</button>
+          <button className='action-btn' onClick={() => this.setState({ ...initialState })}>RESET</button>
+          <button className='action-btn' onClick={this.filterWords.bind(this)}>Calculate</button>
         </div>
         <div className='wordListDiv'>
           <h1 className='wordListHeader'>Possible Words</h1>

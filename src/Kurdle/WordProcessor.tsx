@@ -2,7 +2,7 @@ import { Position, Color } from './Position';
 
 export const trimWords = (position: Position, calculatedWordList: string[]): string[] => {//There are probably tons of improvements for this (especially with yellows)
     if (position.Letter !== '') {
-        switch (position.Accuracy) {
+        switch (position.Color) {
             case Color.Grey:
                 return calculatedWordList.filter(word => !word.includes(position.Letter, 0));
             case Color.Yellow:

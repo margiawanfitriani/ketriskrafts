@@ -1,6 +1,17 @@
-.container{  
+.div-grid-holder {
+    margin-top: 10vh;
+    padding-top: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    overflow: hidden;
+    flex-direction: column
+}
+
+.container {  
     text-align: center;  
-    }  
+}  
 
 .wordListDiv {
     border: 1px solid gray;
@@ -15,46 +26,41 @@
     color: #4CAF50;
 }
 
-.reset-btn{  
+.action-btn {  
     color: black;
-    width: 120px;
-    height: 120px;
+    width: 20vw;
+    height: 10vw;
     font-family: fantasy;
-    font-size: 20px;
+    font-size: 3vw;
     border-radius: 10%;
-    margin: 12px 6px;
+    /* margin: 12px 6px; */
     resize: none;
     white-space: normal;
     text-align: center;
     vertical-align: center;
     align-items: center;
     text-transform: uppercase;
-    transform: translate(-7px);
+    /* transform: translate(-7px); */
 }  
 
-.reset-btn:hover{  
+.action-btn:hover {  
     background-color: bisque;
 }
 
-.reset-btn:active{  
+.action-btn:active {  
     background-color:#3a3a3c;
 }
 
-.kurdle-cell{
+.kurdle-cell {
     color: white;
-    width: 120px;
-    height: 120px;
+    width: 11vw;
+    height: 11vw;
     font-family: fantasy;
-    font-size: 80px;
+    font-size: 5vw;
     border: 2px solid #3a3a3c;
     border-radius: 10%;
-    margin: 6px 6px;
-    resize: none;
-    white-space: normal;
+    margin: .3vw .3vw;
     text-align: center;
-    vertical-align: center;
-    align-items: center;
-    justify-content: center;
     text-transform: uppercase;
 }
 
@@ -62,4 +68,12 @@
     border: 2px solid black;
     outline: #00ffff solid 7px;
     text-align: center;
+}
+
+.kurdle-grid { 
+    position: relative;
+    /* left: 50%; */
+    margin-top: 10px;
+    transform: translate(22%, 0%);
+    padding: 10px;
 }

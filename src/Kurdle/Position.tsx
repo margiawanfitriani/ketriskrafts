@@ -7,12 +7,12 @@ export enum Color {
 
 export class Position {
   Letter: string = '';
-  Accuracy: Color = Color.Nothing;
+  Color: Color = Color.Nothing;
   Index: number;
 
-  constructor(letter: string, accuracy: number, index: number) {
+  constructor(letter: string, color: Color, index: number) {
     this.Letter = letter;
-    this.Accuracy = accuracy;
+    this.Color = color;
     this.Index = index;
   }
 }

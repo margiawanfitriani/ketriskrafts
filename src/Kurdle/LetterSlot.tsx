@@ -29,7 +29,7 @@ function LetterSlot(props: myProps) {
       value={props.position.Letter}
       onChange={(e) => props.onChange(e)}
       style={{
-        background: colorPicker(props.position.Accuracy),
+        background: colorPicker(props.position.Color),
       }}
     ></input>
   );
