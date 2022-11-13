@@ -86,14 +86,7 @@ class Kurdle extends React.Component<any, MyState> {
   render() {
     return (
       <div className="div-grid-holder">
-        <Grid
-          container
-          className="kurdle-grid"
-          direction='row'
-          justifyContent='center'
-          alignItems='center'
-          spacing={2}
-        >
+        <div>
           {this.state.gridList.map((row, rowIndex) => {
             return (
               <Grid container key={rowIndex}>
@@ -113,7 +106,7 @@ class Kurdle extends React.Component<any, MyState> {
               </Grid>
             );
           })}
-        </Grid>
+        </div>
         <div className='container'>
           <button className='action-btn' onClick={() => this.setState({ ...initialState })}>RESET</button>
           <button className='action-btn' onClick={this.filterWords.bind(this)}>Calculate</button>

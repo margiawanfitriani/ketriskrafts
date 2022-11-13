@@ -71,9 +71,9 @@
 }
 
 .kurdle-grid { 
-    position: relative;
+    /* position: relative; */
     /* left: 50%; */
-    margin-top: 10px;
-    transform: translate(22%, 0%);
+    /* margin-top: 10px; */
+    /* transform: translate(22%, 0%); */
     padding: 10px;
 }
