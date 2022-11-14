@@ -1,3 +1,5 @@
+html {background-color: black}
+
 .div-grid-holder {
     margin-top: 10vh;
     padding-top: 1vh;
@@ -14,20 +16,22 @@
 }  
 
 .wordListDiv {
-    border: 1px solid gray;
     padding: 10px;
-    margin-left: 20vw;
-    margin-right: 20vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    text-align: center;
 }
 
 .wordListHeader {
     text-align: center;
     text-transform: uppercase;
+    font-size: 4vw;
     color: #4CAF50;
 }
 
 .action-btn {  
-    color: black;
+    color: white;
+    background-color: #3a3a3a;
     width: 20vw;
     height: 10vw;
     font-family: fantasy;
@@ -53,8 +57,8 @@
 
 .kurdle-cell {
     color: white;
-    width: 11vw;
-    height: 11vw;
+    width: 16vw;
+    height: 16vw;
     font-family: fantasy;
     font-size: 5vw;
     border: 2px solid #3a3a3c;
