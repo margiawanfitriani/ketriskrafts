@@ -1,6 +1,5 @@
 import { Position } from './Position';
 import './Kurdle.css';
-import { isPropertySignature } from 'typescript';
 
 type myProps = {
   onKeyUp: any;
