@@ -20,24 +20,26 @@ function colorPicker(Accuracy: number): string {
   }
 }
 
-function SpaceBarPressed(
-  e: React.KeyboardEvent<HTMLInputElement>,
-  props: myProps
-) {
-  if (e.key === " " ||
-    e.code === "Space" ||
-    e.keyCode === 32
-  ) {
-    props.onKeyUp();
-  }
-}
+//TODOASDF This doesn't work on my android phone
+// function SpaceBarPressed(
+//   e: React.KeyboardEvent<HTMLInputElement>,
+//   props: myProps
+// ) {
+//   if (e.key === " " ||
+//     e.code === "Space" ||
+//     e.keyCode === 32
+//   ) {
+//     props.onKeyUp();
+//   }
+// }
 
 function LetterSlot(props: myProps) {
   return (
     <input
       className='kurdle-cell'
       maxLength={1}
-      onKeyUp={e => SpaceBarPressed(e, props)}
+      // onKeyUp={e => SpaceBarPressed(e, props)}
+      onClick={props.onKeyUp}
       value={props.position.Letter}
       onChange={(e) => props.onChange(e)}
       style={{
