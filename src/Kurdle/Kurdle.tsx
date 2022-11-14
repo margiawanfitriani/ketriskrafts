@@ -94,7 +94,7 @@ class Kurdle extends React.Component<any, MyState> {
                   <Grid item key={colIndex}>
                     <LetterSlot
                       position={this.state.gridList[rowIndex][colIndex]}
-                      onClick={() =>
+                      onKeyUp={() =>
                         this.updateLetterAccuracy(rowIndex, colIndex)
                       }
                       onChange={(event: React.FormEvent<HTMLInputElement>) =>

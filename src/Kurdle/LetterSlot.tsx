@@ -1,8 +1,9 @@
 import { Position } from './Position';
 import './Kurdle.css';
+import { isPropertySignature } from 'typescript';
 
 type myProps = {
-  onClick: any;
+  onKeyUp: any;
   position: Position;
   onChange: any;
 };
@@ -20,12 +21,24 @@ function colorPicker(Accuracy: number): string {
   }
 }
 
+function SpaceBarPressed(
+  e: React.KeyboardEvent<HTMLInputElement>,
+  props: myProps
+) {
+  if (e.key === " " ||
+    e.code === "Space" ||
+    e.keyCode === 32
+  ) {
+    props.onKeyUp();
+  }
+}
+
 function LetterSlot(props: myProps) {
   return (
     <input
       className='kurdle-cell'
       maxLength={1}
-      onClick={props.onClick}
+      onKeyUp={e => SpaceBarPressed(e, props)}
       value={props.position.Letter}
       onChange={(e) => props.onChange(e)}
       style={{
