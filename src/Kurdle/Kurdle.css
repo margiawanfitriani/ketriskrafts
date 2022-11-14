@@ -1,4 +1,5 @@
 html {background-color: black}
+* {font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif}
 
 .div-grid-holder {
     margin-top: 10vh;
@@ -20,6 +21,7 @@ html {background-color: black}
     margin-left: 1vw;
     margin-right: 1vw;
     text-align: center;
+    color:#9F9F9F;
 }
 
 .wordListHeader {
@@ -32,27 +34,20 @@ html {background-color: black}
 .action-btn {  
     color: white;
     background-color: #3a3a3a;
-    width: 20vw;
+    width: 40vw;
     height: 10vw;
-    font-family: fantasy;
-    font-size: 3vw;
-    border-radius: 10%;
-    /* margin: 12px 6px; */
+    font-size: 5vw;
+    border-radius: 12px;
+    margin: 3vw;
     resize: none;
     white-space: normal;
     text-align: center;
     vertical-align: center;
     align-items: center;
-    text-transform: uppercase;
-    /* transform: translate(-7px); */
-}  
-
-.action-btn:hover {  
-    background-color: bisque;
 }
 
 .action-btn:active {  
-    background-color:#3a3a3c;
+    background-color:#9F9F9F;
 }
 
 .kurdle-cell {
@@ -60,24 +55,18 @@ html {background-color: black}
     width: 16vw;
     height: 16vw;
     font-family: fantasy;
-    font-size: 5vw;
-    border: 2px solid #3a3a3c;
-    border-radius: 10%;
-    margin: .3vw .3vw;
+    font-size: 12vw;
+    border: 1px solid #3a3a3c;
+    border-radius: 12px;
+    margin: .8vw;
     text-align: center;
     text-transform: uppercase;
 }
 
 .kurdle-cell:focus {
-    border: 2px solid black;
-    outline: #00ffff solid 7px;
     text-align: center;
-}
-
-.kurdle-grid { 
-    /* position: relative; */
-    /* left: 50%; */
-    /* margin-top: 10px; */
-    /* transform: translate(22%, 0%); */
-    padding: 10px;
+    -webkit-transform:scale(1.1);
+    -moz-transform:scale(1.1);
+    -o-transform:scale(1.1);
+    transform:scale(1.1);
 }

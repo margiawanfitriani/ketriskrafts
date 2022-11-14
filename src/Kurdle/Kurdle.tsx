@@ -108,7 +108,7 @@ class Kurdle extends React.Component<any, MyState> {
           })}
         </div>
         <div className='container'>
-          <button className='action-btn' onClick={() => this.setState({ ...initialState })}>RESET</button>
+          <button className='action-btn' onClick={() => this.setState({ ...initialState })}>Reset</button>
           <button className='action-btn' onClick={this.filterWords.bind(this)}>Calculate</button>
         </div>
         <div className='wordListDiv'>
