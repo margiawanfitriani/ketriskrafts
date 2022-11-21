@@ -1,4 +1,4 @@
-import { Position } from './Position';
+import { Color, Position } from './Position';
 import './Kurdle.css';
 
 type myProps = {
@@ -8,14 +8,14 @@ type myProps = {
 
 function colorPicker(Accuracy: number): string {
   switch (Accuracy) {
-    case 0:
-      return '#3a3a3c';
-    case 1:
-      return '#b59f3b';
-    case 2:
-      return '#538d4e';
+    case Color.Grey:
+      return '#2c3032';
+    case Color.Yellow:
+      return '#917f2f';
+    case Color.Green:
+      return '#42713e';
     default:
-      return '#121213';
+      return '#0e0f10';
   }
 }
 
@@ -27,6 +27,7 @@ function LetterSlot(props: myProps) {
       onChange={(e) => props.onChange(e)}
       style={{
         background: colorPicker(props.position.Color),
+        border: props.position.Color === Color.Nothing ? "2px solid #797063" : "0px"
       }}
     ></input>
   );

@@ -1,9 +1,12 @@
-html {background-color: black}
-* {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif}
+html {background-color: #0e0f10}
+* {
+    font-family: Helvetica;
+    font-weight: bold;
+}
 
 .div-grid-holder {
     margin-top: 10vh;
-    padding-top: 1vh;
+    padding-top: 8.5vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +17,7 @@ html {background-color: black}
 
 .container {  
     text-align: center;  
+    margin-top: 6vh;
 }  
 
 .wordListDiv {
@@ -28,7 +32,7 @@ html {background-color: black}
     text-align: center;
     text-transform: uppercase;
     font-size: 4vw;
-    color: #4CAF50;
+    color: #42713e;
 }
 
 .action-btn {  
@@ -52,12 +56,11 @@ html {background-color: black}
 
 .kurdle-cell {
     color: white;
-    width: 13vw;
-    height: 13vw;
-    font-size: 12vw;
-    border: .7vw solid #3a3a3c;
-    margin: .9vw;
-    border-radius: 10%;
+    width: 15vw;
+    height: 15vw;
+    font-size: 6vw;
+    margin: .7vw;
+    box-sizing: border-box;
     text-align: center;
     text-transform: uppercase;
     caret-color: transparent;
