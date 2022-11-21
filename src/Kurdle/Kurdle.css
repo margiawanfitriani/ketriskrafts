@@ -52,15 +52,16 @@ html {background-color: black}
 
 .kurdle-cell {
     color: white;
-    width: 16vw;
-    height: 16vw;
+    width: 13vw;
+    height: 13vw;
     font-family: fantasy;
     font-size: 12vw;
-    border: 1px solid #3a3a3c;
-    border-radius: 12px;
-    margin: .8vw;
+    border: .1vw solid #3a3a3c;
+    margin: .5vw;
+    border-radius: 10%;
     text-align: center;
     text-transform: uppercase;
+    caret-color: transparent;
 }
 
 .kurdle-cell:focus {
@@ -69,4 +70,8 @@ html {background-color: black}
     -moz-transform:scale(1.1);
     -o-transform:scale(1.1);
     transform:scale(1.1);
+}
+
+input {
+    padding: 0px 0px;
 }
