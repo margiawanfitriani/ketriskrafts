@@ -42,7 +42,7 @@ class Kurdle extends React.Component<any, MyState> {
         let overlappingLetters = greenLetters.filter((greenLetter) => greenLetter.Letter === letter.Letter)
         if (overlappingLetters.length > 0) {
           if (letter.Color !== Color.Grey) {
-            // If we have a grey letter that is the same as a green then don't filter
+            // If we have a grey letter that is the same as a green then don't filter out words that only have one of that letter.
             //TODOASDF: if we have a yellow, and a green, then we need to only find words where there are both the green and another occurance of the same
             // letter in the word right now the way I have it written would mean making some changes to how the processing gets done. I am just a little too 
             // lazy right now to fix that 
@@ -61,54 +61,43 @@ class Kurdle extends React.Component<any, MyState> {
     this.setState({ wordList: calculatedWordList })
   }
 
-  updateLetterAccuracy(
-    row: number,
-    col: number,
-    resetColor: boolean = false) {
-    let copiedLetters: Position[][] = deepCopy(this.state.gridList);
-    if (++copiedLetters[row][col].Color === 3) {
-      copiedLetters[row][col].Color = 0;
-    }
-
-    if (resetColor) {
-      copiedLetters[row][col].Color = -1;
-    }
-
-    this.setState({ gridList: deepCopy(copiedLetters) });
-
-    this.filterWords()
-  }
-
-  updatePositionValue(
-    row: number,
-    col: number,
-    letter: string,
-  ) {
-    let copiedLetters: Position[][] = deepCopy(this.state.gridList);
-    copiedLetters[row][col].Letter = letter;
-
-    this.setState({
-      gridList: deepCopy(copiedLetters),
-    });
-  }
-
   updatePositionInfo(
     row: number,
     col: number,
     event: React.FormEvent<HTMLInputElement>,
   ) {
-    let finalLetter: string = event.currentTarget.value.at(-1) || '';
-    if (finalLetter === ' ') {
-      this.updateLetterAccuracy(row, col, event.currentTarget.value.length === 1);
-      return;
+    let copiedGridOfLetters: Position[][] = deepCopy(this.state.gridList);
+
+    let finalItemInCell: string = event.currentTarget.value.at(-1) || '';
+
+    let changingColor = finalItemInCell === ' ';
+    if (changingColor) {
+      if (++copiedGridOfLetters[row][col].Color > Color.Green) {
+        copiedGridOfLetters[row][col].Color = Color.Grey;
+      }
+    } else {
+      copiedGridOfLetters[row][col].Letter = finalItemInCell.toUpperCase();
+
+      let setTheInitialColorWhenWeAddALetter = copiedGridOfLetters[row][col].Color === Color.Nothing;
+      if (setTheInitialColorWhenWeAddALetter) {
+        copiedGridOfLetters[row][col].Color = Color.Grey;
+      }
     }
 
-    this.updatePositionValue(row, col, finalLetter)
+    let noTextEntered = event.currentTarget.value.trim().length === 0;
+    if (noTextEntered) {
+      copiedGridOfLetters[row][col].Color = Color.Nothing;
+    }
+
+    this.setState({ gridList: deepCopy(copiedGridOfLetters) }, this.filterWords);
   }
 
   render() {
     return (
       <div className="div-grid-holder">
+        <div className='container'>
+          <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>Reset</button>
+        </div>
         <div>
           {this.state.gridList.map((row, rowIndex) => {
             return (
@@ -127,11 +116,8 @@ class Kurdle extends React.Component<any, MyState> {
             );
           })}
         </div>
-        <div className='container'>
-          <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>Reset</button>
-        </div>
         <div className='wordListDiv'>
-          <h1 className='wordListHeader'>Possible Words</h1>
+          {/* <h1 className='wordListHeader'>Possible Words</h1> */}
           <p>{this.state.wordList.join(' ')}</p>
         </div>
       </div>
