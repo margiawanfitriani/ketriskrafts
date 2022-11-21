@@ -75,9 +75,15 @@ class Kurdle extends React.Component<any, MyState> {
     col: number,
     event: React.FormEvent<HTMLInputElement>,
   ) {
-    let copiedLetters: Position[][] = deepCopy(this.state.gridList);
+    let finalLetter: string = event.currentTarget.value.at(-1) || '';
+    if (finalLetter === ' ') {
+      this.updateLetterAccuracy(row, col);
+      return;
+    }
 
-    copiedLetters[row][col].Letter = event.currentTarget.value;
+    let copiedLetters: Position[][] = deepCopy(this.state.gridList);
+    copiedLetters[row][col].Letter = finalLetter;
+
     this.setState({
       gridList: deepCopy(copiedLetters),
     });
@@ -94,9 +100,6 @@ class Kurdle extends React.Component<any, MyState> {
                   <Grid item key={colIndex}>
                     <LetterSlot
                       position={this.state.gridList[rowIndex][colIndex]}
-                      onKeyUp={() =>
-                        this.updateLetterAccuracy(rowIndex, colIndex)
-                      }
                       onChange={(event: React.FormEvent<HTMLInputElement>) =>
                         this.updateLetterValue(rowIndex, colIndex, event)
                       }
