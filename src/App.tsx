@@ -3,7 +3,9 @@ import Kurdle from './Kurdle/Kurdle';
 
 function App() {
   return (
-    <Kurdle></Kurdle>
+    <div>
+      <Kurdle></Kurdle>
+    </div>
   );
 }
 

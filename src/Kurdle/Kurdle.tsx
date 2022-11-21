@@ -1,7 +1,7 @@
 import LetterSlot from './LetterSlot';
 import { Color, Position } from './Position';
 import { deepCopy } from '../Utilities/deepCopy';
-import Grid from '@mui/material/Grid'; // Grid version 1
+import Grid from '@mui/material/Grid';
 import './Kurdle.css';
 import { trimWords, words } from './WordProcessor';
 import React from 'react';
@@ -75,6 +75,8 @@ class Kurdle extends React.Component<any, MyState> {
     }
 
     this.setState({ gridList: deepCopy(copiedLetters) });
+
+    this.filterWords()
   }
 
   updatePositionValue(
@@ -126,8 +128,7 @@ class Kurdle extends React.Component<any, MyState> {
           })}
         </div>
         <div className='container'>
-          <button className='action-btn' onClick={() => this.setState({ ...initialState })}>Reset</button>
-          <button className='action-btn' onClick={this.filterWords.bind(this)}>Calculate</button>
+          <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>Reset</button>
         </div>
         <div className='wordListDiv'>
           <h1 className='wordListHeader'>Possible Words</h1>
