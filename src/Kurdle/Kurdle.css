@@ -1,5 +1,5 @@
 html {background-color: black}
-/* * {font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif} */
+* {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif}
 
 .div-grid-holder {
     margin-top: 10vh;
@@ -54,10 +54,9 @@ html {background-color: black}
     color: white;
     width: 13vw;
     height: 13vw;
-    font-family: fantasy;
     font-size: 12vw;
-    border: .1vw solid #3a3a3c;
-    margin: .5vw;
+    border: .7vw solid #3a3a3c;
+    margin: .9vw;
     border-radius: 10%;
     text-align: center;
     text-transform: uppercase;
