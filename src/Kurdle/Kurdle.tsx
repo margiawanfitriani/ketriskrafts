@@ -94,31 +94,33 @@ class Kurdle extends React.Component<any, MyState> {
 
   render() {
     return (
-      <div className="div-grid-holder">
+      <div>
         <div className='container'>
           <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>Reset</button>
         </div>
-        <div>
-          {this.state.gridList.map((row, rowIndex) => {
-            return (
-              <Grid container key={rowIndex}>
-                {row.map((col, colIndex) => (
-                  <Grid item key={colIndex}>
-                    <LetterSlot
-                      position={this.state.gridList[rowIndex][colIndex]}
-                      onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                        this.updatePositionInfo(rowIndex, colIndex, event)
-                      }
-                    ></LetterSlot>
-                  </Grid>
-                ))}
-              </Grid>
-            );
-          })}
-        </div>
-        <div className='wordListDiv'>
-          {/* <h1 className='wordListHeader'>Possible Words</h1> */}
-          <p>{this.state.wordList.join(' ')}</p>
+        <div className="div-grid-holder">
+          <div>
+            {this.state.gridList.map((row, rowIndex) => {
+              return (
+                <Grid container key={rowIndex}>
+                  {row.map((col, colIndex) => (
+                    <Grid item key={colIndex}>
+                      <LetterSlot
+                        position={this.state.gridList[rowIndex][colIndex]}
+                        onChange={(event: React.FormEvent<HTMLInputElement>) =>
+                          this.updatePositionInfo(rowIndex, colIndex, event)
+                        }
+                      ></LetterSlot>
+                    </Grid>
+                  ))}
+                </Grid>
+              );
+            })}
+          </div>
+          <div className='wordListDiv'>
+            {/* <h1 className='wordListHeader'>Possible Words</h1> */}
+            <p>{this.state.wordList.join(' ')}</p>
+          </div>
         </div>
       </div>
     );
