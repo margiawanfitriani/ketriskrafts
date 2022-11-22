@@ -5,10 +5,14 @@ import Grid from '@mui/material/Grid';
 import './Kurdle.css';
 import { trimWords, words } from './WordProcessor';
 import React from 'react';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 type MyState = {
   gridList: Position[][];
   wordList: string[];
+  anchorEl: HTMLButtonElement | null;
 };
 
 function createStartingGrid(): Position[][] {
@@ -23,6 +27,7 @@ function createStartingGrid(): Position[][] {
 const initialState: MyState = {
   gridList: createStartingGrid(),
   wordList: [],
+  anchorEl: null
 }
 
 class Kurdle extends React.Component<any, MyState> {
@@ -93,9 +98,40 @@ class Kurdle extends React.Component<any, MyState> {
   }
 
   render() {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      this.setState({ anchorEl: event.currentTarget });
+    };
+
+    const handleClose = () => {
+      this.setState({ anchorEl: null });
+    };
+
+    const open = Boolean(this.state.anchorEl);
+    const helpButton = open ? 'simple-popover' : undefined;
+
     return (
       <div>
         <div className='container'>
+          <Popover id={helpButton} open={open} anchorEl={this.state.anchorEl} onClose={handleClose}
+            anchorOrigin={
+              {
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+          >
+            <Typography sx={
+              {
+                p: 2,
+                fontSize: '5vw'
+              }}>
+              To change the color of an item press space bar. Press enter or return to go to the next box.
+            </Typography>
+          </Popover>
+          <button
+            onClick={handleClick}
+            className='question-icon'>
+            <HelpOutlineIcon sx={{ 'fontSize': '10vw' }} />
+          </button>
           <button className='reset-btn' onClick={() => this.setState({ ...initialState })}>Reset</button>
         </div>
         <div className="div-grid-holder">
@@ -118,7 +154,6 @@ class Kurdle extends React.Component<any, MyState> {
             })}
           </div>
           <div className='wordListDiv'>
-            {/* <h1 className='wordListHeader'>Possible Words</h1> */}
             <p>{this.state.wordList.join(' ')}</p>
           </div>
         </div>

@@ -15,7 +15,7 @@ function colorPicker(Accuracy: number): string {
     case Color.Green:
       return '#42713e';
     default:
-      return '#0e0f10';
+      return '#121212';
   }
 }
 
