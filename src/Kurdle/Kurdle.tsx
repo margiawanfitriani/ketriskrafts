@@ -13,6 +13,7 @@ type MyState = {
   gridList: Position[][];
   wordList: string[];
   anchorEl: HTMLButtonElement | null;
+  buttonPressed: string;
 };
 
 const letterSlotRefs: React.RefObject<HTMLInputElement>[][] = Array.from({ length: 6 }, () =>
@@ -42,6 +43,7 @@ const initialState: MyState = {
   gridList: createStartingGrid(),
   wordList: [],
   anchorEl: null,
+  buttonPressed: "",
 };
 
 class Kurdle extends React.Component<any, MyState> {
@@ -91,28 +93,14 @@ class Kurdle extends React.Component<any, MyState> {
     }
   }
 
-  updatePositionInfo(row: number, col: number, keyPressed: string) {
+  inputChanged(row: number, col: number, activeInput: string) {
     let copiedGridOfLetters: Position[][] = deepCopy(this.state.gridList);
     const currentCell = copiedGridOfLetters[row][col];
-    const spacePressed = keyPressed === " ";
-    const shouldNavBack = keyPressed === "Backspace" && currentCell.Letter === "";
-    if (shouldNavBack) {
-      let prevRowIndex = row;
-      let prevColIndex = col - 1;
-
-      if (prevColIndex < 0) {
-        prevColIndex = copiedGridOfLetters[0].length - 1;
-        prevRowIndex = Math.max(prevRowIndex - 1, 0);
-      }
-
-      letterSlotRefs[prevRowIndex][prevColIndex]?.current?.focus();
-    }
-
-    if (keyPressed === "Backspace") {
+    if (activeInput === "") {
       currentCell.Letter = "";
       currentCell.Color = Color.Nothing;
-    } else if (!spacePressed) {
-      currentCell.Letter = keyPressed.toUpperCase();
+    } else {
+      currentCell.Letter = activeInput;
 
       let setTheInitialColorWhenWeAddALetter = currentCell.Color === Color.Nothing;
       if (setTheInitialColorWhenWeAddALetter) {
@@ -129,8 +117,27 @@ class Kurdle extends React.Component<any, MyState> {
       }
     }
 
-    if (!spacePressed) {
+    if (activeInput !== " ") {
       this.setState({ gridList: deepCopy(copiedGridOfLetters) }, this.filterWords);
+    }
+  }
+
+  handleKeyPressed(row: number, col: number, keyPressed: string) {
+    const currentCell = this.state.gridList[row][col];
+    const shouldNavBack = keyPressed === "Backspace" && currentCell.Letter === "";
+    if (shouldNavBack) {
+      let prevRowIndex = row;
+      let prevColIndex = col - 1;
+
+      if (prevColIndex < 0) {
+        prevColIndex = this.state.gridList[0].length - 1;
+        prevRowIndex--;
+      }
+      if (prevRowIndex < 0) {
+        prevRowIndex = 0;
+        prevColIndex = 0;
+      }
+      letterSlotRefs[prevRowIndex][prevColIndex].current?.focus();
     }
   }
 
@@ -174,6 +181,7 @@ class Kurdle extends React.Component<any, MyState> {
           <button className="reset-btn" onClick={() => this.setState({ ...initialState })}>
             Reset
           </button>
+          <div>{this.state.buttonPressed}</div>
         </div>
         <div className="div-grid-holder">
           <div>
@@ -185,7 +193,8 @@ class Kurdle extends React.Component<any, MyState> {
                       <LetterSlot
                         inputRef={letterSlotRefs[rowIndex][colIndex]}
                         position={this.state.gridList[rowIndex][colIndex]}
-                        onChange={(keyPressed: string) => this.updatePositionInfo(rowIndex, colIndex, keyPressed)}
+                        onChange={(onChange: string) => this.inputChanged(rowIndex, colIndex, onChange)}
+                        onKeyPressed={(onKeyPressed: string) => this.handleKeyPressed(rowIndex, colIndex, onKeyPressed)}
                       ></LetterSlot>
                     </Grid>
                   ))}

@@ -3,8 +3,9 @@ import "./Kurdle.css";
 
 type myProps = {
   position: Position;
-  onChange: any;
-  inputRef: any;
+  onChange: (value: string) => void;
+  inputRef: React.RefObject<HTMLInputElement>;
+  onKeyPressed: (key: string) => void;
 };
 
 function colorPicker(Accuracy: number): string {
@@ -23,9 +24,12 @@ function colorPicker(Accuracy: number): string {
 function LetterSlot(props: myProps) {
   return (
     <input
+      inputMode="text"
       ref={props.inputRef}
       className="kurdle-cell"
-      onKeyUp={(e) => props.onChange(e.key)}
+      value={props.position.Letter}
+      onKeyUp={(e) => props.onKeyPressed(e.key)}
+      onChange={(e) => props.onChange(e.currentTarget.value.toUpperCase().trim().at(-1) || "")}
       style={{
         background: colorPicker(props.position.Color),
         border: props.position.Color === Color.Nothing ? "2px solid #797063" : "0px",
