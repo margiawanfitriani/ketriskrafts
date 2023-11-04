@@ -179,7 +179,7 @@ class Kurdle extends React.Component<any, MyState> {
             <HelpOutlineIcon sx={{ fontSize: "10vw" }} />
           </button>
           <button className="reset-btn" onClick={() => this.setState({ ...initialState })}>
-            Reset
+            Reset Grid
           </button>
           <div>{this.state.buttonPressed}</div>
         </div>
