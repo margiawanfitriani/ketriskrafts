@@ -172,7 +172,7 @@ class Kurdle extends React.Component<any, MyState> {
                 fontSize: "5vw",
               }}
             >
-              To change the color of an item press click on a box.
+              To change the color of an item click on a box with a letter inside of it.
             </Typography>
           </Popover>
           <button onClick={handleClick} className="question-icon">
