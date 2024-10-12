@@ -14,4 +14,4 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KETRI_S_KRAFTS }}'
-          projectId: ketri-s-krafts
+          projectId: kepatotorica
